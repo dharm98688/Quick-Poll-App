@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ category.title }} Questions{% endblock %}
+{% block content %}
+    <h1 class="card my-4">Result of Attempted Questions</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Questions</th>
+                <th>Right Answer</th>
+                <th>Submitted Answer</th>
+                <th>Percentage</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.question }}</td>
+                    <td>{{ row.question.right_opt }}</td>
+                    <td>{{ row.right_answer }}</td>
+                {% if row.question.right_opt == row.right_answer %}
+                        <td style="color: green;">Correct</td>
+                    {% else %}
+                        <td style="color: red;">Answer is Wrong</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <h1 class="card my-4">Result Details</h1>
+    <table class="table table-bordered">
+    <tr>
+      <th>Total Questions</th>
+      <td>{{ result.count }}</td>
+    </tr>
+    <tr>
+      <th>Total Skipped Questions</th>
+      <td>{{ totalskipped }}</td>
+    </tr>
+    <tr>
+      <th>Total Attempted Questions</th>
+      <td>{{ total_attempt }}</td>
+    </tr>
+    <tr>
+      <th>Total Right Answers</th>
+      <td>{{ rightAns }}</td>
+    </tr>
+    <tr>
+      <th>Percentage</th>
+      <td>{{ percentage }}%</td>
+    </tr>
+    </table>
+{% endblock %}
